@@ -1,0 +1,174 @@
+\documentclass[journal]{IEEEtran}
+\usepackage{amsmath,amsfonts}
+\usepackage{mathtools} 
+\usepackage[caption=false,font=scriptsize,labelfont=rm,textfont=rm,subrefformat=parens]{subfig}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{array}
+\usepackage{textcomp}
+\usepackage{pifont}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{cite}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{bigstrut}
+\usepackage{colortbl}
+\usepackage{afterpage}
+\usepackage{xcolor}
+\usepackage{soul}
+\graphicspath{{Figures/PDF/}{Figures/PNG/}}
+% \usepackage[justification]{caption}
+\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+% updated with editorial comments 8/9/2021
+
+%%%%%%%%%%% rev
+% \usepackage[pagebackref,breaklinks,colorlinks]{hyperref}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue,]{hyperref}
+\usepackage{orcidlink} %调包
+% \hypersetup{hidelinks} % hide the hyperlink box  把可能出现的方框去掉
+
+\newcommand{\parsection}[1]{\textbf{#1 }}
+
+\DeclareSubrefFormat{myparens}{#1(#2)}
+\captionsetup[subfloat]{subrefformat=myparens}
+
+\usepackage{xcolor}
+\usepackage{xpatch}
+
+\makeatletter
+\ExplSyntaxOn
+% #1 = color
+% #2 = list of bib items
+\cs_new:Npn \bibColoredItems #1#2
+  {
+    \clist_map_inline:nn {#2} { \cs_new:cpn {bib@colored@##1} {#1} } 
+  }
+\ExplSyntaxOff
+
+% #1 = one bib item
+\newcommand\bib@setcolor[1]{%
+  \ifcsname bib@colored@#1\endcsname
+    \expanded{\noexpand\color{\csname bib@colored@#1\endcsname}}%
+  \else
+    \normalcolor
+  \fi
+}
+
+\IfPackageLoadedTF{hyperref}{\@tempswatrue}{\@tempswafalse}
+\if@tempswa
+  \xpatchcmd\@bibitem {\H@item}{\bib@setcolor{#1}\H@item}{}{\PatchFailed}
+  \xpatchcmd\@lbibitem{\H@item}{\bib@setcolor{#2}\H@item}{}{\PatchFailed}
+\else
+  \xpatchcmd\@bibitem {\item}  {\bib@setcolor{#1}\item}  {}{\PatchFailed}
+  \xpatchcmd\@lbibitem{\item}  {\bib@setcolor{#2}\item}  {}{\PatchFailed}
+\fi
+\makeatother
+
+% \let\oldequation\equation
+% \let\oldendequation\endequation
+% \renewenvironment{equation}
+%   {\linenomathNonumbers\oldequation}
+%   {\oldendequation\endlinenomath}
+
+%%%%%%%%%%% rev
+% \definecolor{revisioncolor}{HTML}{0000F5} %预定义高亮颜色revisioncolor，直接引用，统一修改。
+\definecolor{revisioncolor}{HTML}{000000} %预定义高亮颜色revisioncolor，直接引用，统一修改。
+
+\newcommand{\revision}[1]{\textcolor{revisioncolor}{#1}}  %定义新命令revision，方便插入和修改。
+
+
+%%%%%%%%%%% rev
+% \usepackage[mathlines,switch,pagewise]{lineno}
+% \pagewiselinenumbers% 按页重新编号 
+% \switchlinenumbers
+
+\begin{document}
+
+% \textsuperscript{\orcidlink{0009-0002-2830-0876}}
+
+
+\title{Overcoming the Identity Mapping Problem in Self-Supervised Hyperspectral Anomaly Detection}
+
+% \author{Yongchuan Cui\textsuperscript{\orcidlink{0009-0002-5179-6232}},~\IEEEmembership{Graduate~Student~Member,~IEEE,} 
+\author{Yongchuan Cui, 
+        Jinhe Zhang,
+        Peng Liu,~\IEEEmembership{Senior~Member,~IEEE,}
+        % Peng Liu\textsuperscript{\orcidlink{0000-0003-3292-8551}},~\IEEEmembership{Senior~Member,~IEEE,}
+        Weijing Song, 
+        and Yi Zeng
+        % <-this % stops a space
+\thanks{This research was partially supported by the National Natural Science Foundation of China (NSFC) under Grant 41971397, and Project E3E2181101, 2024YFF1307204 \textit{(Corresponding author: Peng Liu. Email: \mbox{liupeng202303@aircas.ac.cn}).}}
+\thanks{Yongchuan Cui and Peng Liu are with Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing, China, and School of Electronic, Electrical and Communication Engineering, University of Chinese Academy of Sciences, Beijing, China. Jinhe Zhang is with School of Geography and Information Engineering, China University of Geosciences (Wuhan), Wuhan, China. Weijing Song is with School of Computer Science, China University of Geosciences (Wuhan), Wuhan, China. Yi Zeng is with College of Information, Beijing Forestry University, Beijing, China.}
+\thanks{Yongchuan Cui and Jinhe Zhang are co-first authors.}
+}
+
+% The paper headers
+\markboth{IEEE Transactions on Geoscience and Remote Sensing}%
+{Shell \MakeLowercase{\textit{et al.}}: A Sample Article Using IEEEtran.cls for IEEE Journals}
+
+% \IEEEpubid{0000--0000/00\$00.00~\copyright~2021 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+
+\maketitle
+
+
+\input{Section/0.Abs}
+
+\input{Section/1.Intro}
+
+\input{Section/2.RelatedWork}
+
+\input{Section/3.Method}
+
+\input{Section/4.Exp}
+
+% \input{parts/5.Limitions}
+
+\input{Section/6.Conclusion}
+
+%%%%%%%%%% rev
+% \nolinenumbers
+\bibliographystyle{IEEEtran}
+\bibColoredItems{revisioncolor}{10285392,10330008,TV,FE-HPM,Pan-Mamba,Lambda-PNN,duancvpr2024,ran2024knlconv} %新增ref，颜色设置为revisioncolor
+\bibliography{egbib}
+
+% \newpage
+
+% \vspace{-0.5in}
+
+% \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.333in,clip,keepaspectratio]{fig/bios/YongchuanCui.jpg}}]{Yongchuan Cui} (Student Member, IEEE) received the B.E. degree in data science and big data technology from China University of Geosciences, Wuhan, China, in 2023. He is currently pursuing the master's degree in signal and information processing from Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing, China. His current research interests include image processing, deep learning, multimodal, unified foundation models for earth vision, and geospatial AI. Contact him at \href{mailto:cugcuiyc@cug.edu.cn}{\textcolor{black}{cugcuiyc@cug.edu.cn}}.
+%   \end{IEEEbiography}
+
+%   % \vspace{-0.5in}
+
+%   \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{fig/bios/PengLiu.png}}]{Peng Liu} (Member, IEEE) received the M.S. and Ph.D. degrees in signal processing from the Chinese Academic of Science, Beijing, China, in 2004 and 2009, respectively. He is currently an Associate Professor at the Aerospace Information Research Institute, Chinese Academy of Sciences. From May 2012 to May 2013, he was with the Department of Electrical and Computer Engineering, George Washington University, Washington, DC, USA, as a Visiting Scholar. His research is focused on big data, sparse representation, compressive sensing, deep learning and their applications to remote sensing data processing.
+%    \end{IEEEbiography}
+
+%   %  \vspace{-0.5in}
+
+%    \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{fig/bios/YanMa.png}}]{Yan Ma} (Member, IEEE) received the M.S. and Ph.D. degrees in signal and information processing from the University of Chinese Academy of Sciences, Beijing, China, in 2007 and 2013, respectively. She is currently an Associate Professor at the Aerospace Information Research Institute, Chinese Academy of Sciences.
+%    \end{IEEEbiography}
+
+%   %  \vspace{-0.5in}
+
+%    \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.333in,clip,keepaspectratio]{fig/bios/LajiaoChen.jpg}}]{Lajiao Chen} is an associate professor at Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing, China. Her research interests are focused on geographic information systems and remote sensing techniques and their application to water resource management. Contact her at \href{mailto:chenlj@radi.ac.cn}{\textcolor{black}{chenlj@radi.ac.cn}}.
+%    \end{IEEEbiography}
+
+%   %  \vspace{-0.5in}
+
+%    \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.333in,clip,keepaspectratio]{fig/bios/MengzhenXu.jpg}}]{Mengzhen Xu} is a tenured Associate Professor and vice head of the School of Civil Engineering in Tsinghua University. Her research explores the interfaces between hydraulics, sediment, structures, and aquatic organisms, and their application in river uses and ecological restoration. Contact her at \href{mailto:mzxu@tsinghua.edu.cn}{\textcolor{black}{mzxu@tsinghua.edu.cn}}.
+%    \end{IEEEbiography}
+
+%   %  \vspace{-0.5in}
+
+%    \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{fig/bios/XingyanGuo.jpg}}]{Xingyan Guo} is a postdoctoral researcher at Tsinghua University. Her research interests primarily focus on fluvial geomorphology and morphodynamics in diverse environmental settings. She holds a PhD in Physical Geography from the Chinese Academy of Sciences. Contact her at \href{mailto:guoxingyan@mail.tsinghua.edu.cn}{\textcolor{black}{guoxingyan@mail.tsinghua.edu.cn}}.
+%    \end{IEEEbiography}
+\end{document}
+
+
