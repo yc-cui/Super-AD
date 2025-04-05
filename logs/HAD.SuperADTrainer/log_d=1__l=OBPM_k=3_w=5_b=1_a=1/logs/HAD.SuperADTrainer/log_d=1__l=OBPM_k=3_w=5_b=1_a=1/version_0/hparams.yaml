@@ -1,0 +1,14 @@
+alpha: 1
+bands: 204
+beta: 1
+data_name: '1_'
+epochs: 1000
+kernel_size: 3
+loss_name: OBPM
+lr: 0.001
+rgb_c:
+- 9
+- 5
+- 3
+th_idx: 0.25
+window_size: 5

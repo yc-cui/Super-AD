@@ -1,16 +1,43 @@
-# Rethinking Identity Mapping in Self-Supervised Hyperspectral Anomaly Detection: A Unified Perspective on Network Optimization
+# Overcoming the Identity Mapping Problem in Self-Supervised Hyperspectral Anomaly Detection
 
 
-This is the official pytorch implementation of Rethinking Identity Mapping in Self-Supervised Hyperspectral Anomaly Detection: A Unified Perspective on Network Optimization (Undergoing Review).
+This repository contains a training script for the SuperAD model, designed for self-supervised anomaly detection overcoming the identity mapping problem. The script utilizes PyTorch Lightning for efficient training and logging, and it supports integration with Weights & Biases (Wandb) for experiment tracking.
 
-Code will be released after peer review.
-
-<hr />
-
-> **Abstract:** *The surge of deep learning has catalyzed considerable progress in self-supervised Hyperspectral Anomaly Detection (HAD). The core premise for self-supervised HAD is that anomalous pixels are inherently more challenging to reconstruct, resulting in larger errors compared to the background. However, owing to the powerful nonlinear fitting capabilities of neural networks, self-supervised models often suffer from the Identity Mapping Problem (IMP). The IMP manifests as a tendency for the model to overfit to the entire image, particularly with increasing network complexity or prolonged training iterations. Consequently, the whole image can be precisely reconstructed, and even the anomalous pixels exhibit imperceptible errors, making them difficult to detect. Despite the proposal of several models aimed at addressing the IMP-related issues, a unified descriptive framework and validation of solutions for IMP remain lacking. In this paper, we conduct an in-depth exploration to IMP, and summarize a unified framework that describes IMP from the perspective of network optimization, which encompasses three aspects: perturbation, reconstruction, and regularization. Correspondingly, we introduce three solutions: superpixel pooling and upooling for perturbation, error-adaptive convolution for reconstruction, and online background pixel mining for regularization. With extensive experiments being conducted to validate the effectiveness, it is hoped that our work will provide valuable insights and inspire further research for self-supervised HAD. Code: https://github.com/yc-cui/Super-AD.*
-<hr />
 
 
 ## Network Architecture
 
 ![](assets/overview.png)
+
+
+
+## Requirements
+
+```bash
+conda env create -f environment.yml
+conda activate HAD
+```
+
+## Training
+
+```bash
+python train.py --data_name <data_name>
+```
+
+The `data_name` can be modified in the `name2dir.py` file, you can also add your own data by modifying the `name2dir.py` file.
+
+You can refer to `slic_viz.ipynb` for generating the SLIC superpixel for your own data.
+
+The log file will be saved in the `logs` folder, we provide an example log file in the `logs/HAD.SuperADTrainer/log_d=1__l=OBPM_k=3_w=5_b=1_a=1` folder.
+
+### Arguments
+
+The script accepts the following command-line arguments, parameters may be tuned for different datasets to achieve better performance:
+
+- --data_name: Name of the dataset to be used (default: “1_”).
+- --epochs: Number of training epochs (default: 1000).
+- --lr: Learning rate for the optimizer (default: 1e-3).
+- --a: Alpha parameter for the model (default: 1).
+- --b: Beta parameter for the model (default: 1).
+- --kernel_size: Size of the convolutional kernel (default: 3).
+- --window_size: Size of the sliding window (default: 5).
