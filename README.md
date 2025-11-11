@@ -1,4 +1,4 @@
-# Overcoming the Identity Mapping Problem in Self-Supervised Hyperspectral Anomaly Detection
+# Accepted to TGRS2025: Overcoming the Identity Mapping Problem in Self-Supervised Hyperspectral Anomaly Detection
 
 
 This repository contains a training script for the SuperAD model, designed for self-supervised anomaly detection overcoming the identity mapping problem. The script utilizes PyTorch Lightning for efficient training and logging, and it supports integration with Weights & Biases (Wandb) for experiment tracking.
@@ -29,6 +29,8 @@ The `data_name` can be modified in the `name2dir.py` file, you can also add your
 You can refer to `slic_viz.ipynb` for generating the SLIC superpixel for your own data.
 
 The log file will be saved in the `logs` folder, we provide an example log file in the `logs/HAD.SuperADTrainer/log_d=1__l=OBPM_k=3_w=5_b=1_a=1` folder.
+
+To achieve better results, parameters such as the number of segments and the window size need to be tuned.
 
 ### Arguments
 
